@@ -61,6 +61,9 @@ class Game {
 		*/
 		std::array<bool, GameKeys::MAX> getInput();
 
+		int getMouseX();
+		int getMouseY();
+
 		/**
 		* @return The resource manager.
 		*/
@@ -69,6 +72,8 @@ class Game {
 		FadeScreen& getFade();
 
 		Dijkstra* dijkstra;
+
+		std::vector<int> path;
 
 		/**
 		* Stops execution and closes the game.

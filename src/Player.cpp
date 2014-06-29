@@ -11,10 +11,6 @@
 
 Player::Player(const double x_, const double y_, const std::string& path_) :
     DynamicEntity(x_, y_, path_),
-    potionsLeft(3),
-    maxPotions(3),
-    life(3),
-    currentItem(PItems::POTION),
     animation(nullptr)
 {
     this->width = 64;
@@ -42,12 +38,20 @@ void Player::update(const double dt_){
     const std::array<bool, CollisionSide::SOLID_TOTAL> detections = detectCollision();
     handleCollision(detections);
 
-    moveHorizontal(keyStates[GameKeys::LEFT], keyStates[GameKeys::RIGHT]);
-    moveVertical(keyStates[GameKeys::UP], keyStates[GameKeys::DOWN]);
-
     updatePosition(dt_);
 
     this->animation->update(this->animationClip, dt_);
+
+    if(this->canMove){
+        if(!Game::instance().path.empty()){
+            if(goToLocation(Game::instance().path[0])){
+                Game::instance().path.erase(Game::instance().path.begin() + 1);
+            }
+        }
+        else{
+            this->canMove = false;
+        }
+    }
 
 }
 
@@ -106,13 +110,40 @@ Animation* Player::getAnimation(){
     return (this->animation);
 }
 
+bool Player::goToLocation(int location_){
+    int goingX = (location_ % 50) * 64;
+    int goingY = (location_ / 50) * 64;
+    bool gotX;
+    bool gotY;
+
+    if(this->x < goingX){
+        moveHorizontal(false, true);
+    }
+    else if(this->x > goingX){
+        moveHorizontal(true, false);
+    }
+    else{
+        gotX = true;
+    }
+
+    if(this->y < goingY){
+        moveVertical(false, true);
+    }
+    else if(this->y > goingY){
+        moveVertical(true, false);
+    }
+    else{
+        gotY = true;
+    }
+    if(gotX && gotY){
+        return true;
+    }
+
+}
+
 void Player::updateBoundingBox(){
     this->boundingBox.x = (int) this->nextX; //+ this->currentState->box.x;
     this->boundingBox.y = (int) this->nextY; //+ this->currentState->box.y;
     this->boundingBox.w = this->width; //currentState->box.w;
     this->boundingBox.h = this->height; //currentState->box.h;
-}
-
-bool Player::isDead(){
-    return (this->life <= 0);
 }

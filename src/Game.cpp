@@ -143,6 +143,14 @@ std::array<bool, GameKeys::MAX> Game::getInput(){
 	return this->inputHandler->getKeyStates();
 }
 
+int Game::getMouseX(){
+	return this->inputHandler->mouseX;
+}
+
+int Game::getMouseY(){
+	return this->inputHandler->mouseY;
+}
+
 ResourceManager& Game::getResources(){
 	return (*(this->resourceManager));
 }

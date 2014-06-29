@@ -21,11 +21,6 @@ Level::~Level(){
 		this->camera = nullptr;
 	}
 
-	if(this->playerHud != nullptr){
-		delete this->playerHud;
-		this->playerHud = nullptr;
-	}
-
 	if(this->tileMap != nullptr){
 		delete this->tileMap;
 		this->tileMap = nullptr;

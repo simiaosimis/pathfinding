@@ -5,6 +5,8 @@ InputHandler::InputHandler() :
 	quitFlag(false)
 {
 	this->keyStates.fill(false);
+	this->mouseX = 0;
+	this->mouseY = 0;
 }
 
 InputHandler::~InputHandler(){
@@ -24,6 +26,17 @@ void InputHandler::handleInput(){
 			|| this->sdlEvent.type == SDL_CONTROLLERAXISMOTION){
 			
 		}
+
+		if(this->sdlEvent.type == SDL_MOUSEBUTTONDOWN){ 
+		 	//If the left mouse button was pressed 
+		 	if(this->sdlEvent.button.button == SDL_BUTTON_LEFT){ 
+			 	//Get the mouse offsets 
+			 	mouseX = this->sdlEvent.button.x; 
+			 	mouseY = this->sdlEvent.button.y; 
+			 	Log(DEBUG) << mouseX << "  " << mouseY;
+		 	}
+		}
+
 		// On keydown.
 		if(this->sdlEvent.type == SDL_KEYDOWN){
 

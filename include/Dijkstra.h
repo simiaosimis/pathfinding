@@ -62,7 +62,7 @@ class Dijkstra{
         bool isInMinHeap(struct MinHeap *minHeap, int v);
         void printArr(int dist[], int n);
         void makeDijkstra(struct Graph* graph, int src);
-        void printPath(int node, int source, int prev[]);
+        void printPath(int node, int source);
 };
 
 #endif //INCLUDE_DIJKSTRA_H

@@ -76,19 +76,12 @@ class Player : public DynamicEntity {
 		*/
 		Animation *getAnimation();
 
-		unsigned int potionsLeft;
-		unsigned int maxPotions;
-
-		unsigned int life;
-		// unsigned int maxLife;
-
-		unsigned int currentItem;
-
 		bool isDead();
 
 	private:
 		virtual void updateBoundingBox();
 		virtual void handleCollision(std::array<bool, CollisionSide::SOLID_TOTAL> detections_);
+		bool goToLocation(int location_);
 
 		Animation* animation; /**< Current player animation. */
 

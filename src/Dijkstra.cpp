@@ -4,6 +4,11 @@
 #include <stdlib.h>
 #include <limits.h>
 
+#include "Logger.h"
+#include "Game.h"
+
+int prev[1450];
+
 Dijkstra::Dijkstra(){
 
 }
@@ -13,7 +18,6 @@ Dijkstra::Dijkstra(){
 void Dijkstra::makeDijkstra(struct Graph* graph, int src){
     int V = graph->V;// Get the number of vertices in graph
     int dist[V];      // dist values used to pick minimum weight edge in cut
-    int prev[V];
  
     // minHeap represents set E
     struct MinHeap* minHeap = createMinHeap(V);
@@ -227,13 +231,13 @@ void Dijkstra::printArr(int dist[], int n){
     }
 }
  
-void Dijkstra::printPath(int node, int source, int prev[]){
+void Dijkstra::printPath(int node, int source){
     if(node == source)
-        printf("%d .. ", node);
+        Game::instance().path.push_back(node);
     else if(prev[node] == -1)
-        printf("No path from “<<source<<”to %d" , node);
+        Log(INFO) << "No path from " <<source<< " to " << node;
     else {
-        printPath(prev[node], source, prev);
-        printf("%d .. ", node);
+        printPath(prev[node], source);
+        Game::instance().path.push_back(node);
     }
 }

@@ -43,6 +43,9 @@ class InputHandler {
 
 		void clearKey(const GameKeys key_);
 
+		int mouseX;
+		int mouseY;
+
 	private:
 		/**
 		* Sets InputHandler::quitFlag to true.

@@ -59,7 +59,7 @@ class Camera {
 		unsigned int levelH; /**< The height of the level. */
 		SDL_Rect clip; /**< Clip which will be used to clip the rendering only to the extent of
 			the camera. */
-
+		bool canMove;
 };
 
 #endif //INCLUDE_CAMERA_H

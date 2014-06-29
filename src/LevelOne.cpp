@@ -33,8 +33,6 @@ void LevelOne::load(){
 	// Loading the player and the camera.
 	Player* lPlayer = new Player(this->tileMap->getInitialX(), this->tileMap->getInitialY(), pathPlayerSpriteSheet);
 	Camera* lCamera = new Camera(lPlayer); 
-	
-	this->playerHud = new PlayerHUD(lPlayer);
 
 	// Finally, setting the player and the camera.
 	setPlayer(lPlayer);
@@ -64,17 +62,9 @@ void LevelOne::update(const double dt_){
 		entity->update(dt_);
 	}
 
-	// Updating the HUD.
-	//this->playerHud->update();
 
 	// Updating the camera.
 	this->camera->update();
-
-	// Set next level if end is reached.
-	// if(this->player->reachedLevelEnd){
-	// 	Game::instance().setState(Game::GStates::LEVEL_ONE);
-	// 	return;
-	// }
 	
 }
 
@@ -84,8 +74,6 @@ void LevelOne::render(){
 
 	// Render the tiles in the TileMap.
 	this->tileMap->render(cameraX, cameraY);
-
-	//this->playerHud->render();
 
 	// Render all the entities in the list.
 	for(auto entity : this->entities){
