@@ -149,7 +149,73 @@ void TileMap::load(const std::string& mapPath_){
 						diagonalDistance = 7;
 					}
 
-					
+					// Extreme left, extreme up tile.
+					if(tileNumber == 0){
+						Game::instance().dijkstra->addEdge(graph, 0, 1, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, 0, this->mapWidth, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, 0, this->mapWidth + 1, diagonalDistance);
+					}
+					// Extreme right, extreme down tile.
+					else if(tileNumber == totalTiles - 1){
+						Game::instance().dijkstra->addEdge(graph, totalTiles, totalTiles - 1, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, totalTiles, totalTiles - this->mapWidth, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, totalTiles, totalTiles - this->mapWidth - 1, diagonalDistance);
+					}
+					// Extreme left, extreme down tile.
+					else if(tileNumber == this->mapWidth * (this->mapHeight - 1)){
+						Game::instance().dijkstra->addEdge(graph,tileNumber, tileNumber + 1, linearDistance);
+						Game::instance().dijkstra->addEdge(graph,tileNumber, tileNumber - this->mapHeight, linearDistance);
+						Game::instance().dijkstra->addEdge(graph,tileNumber, tileNumber - this->mapHeight + 1, diagonalDistance);
+					}
+					// Extreme right, extreme up tile.
+					else if(tileNumber == this->mapWidth - 1){
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - 1, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber + this->mapWidth, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber + this->mapWidth - 1, diagonalDistance);
+					}
+					// All left borders tiles except for extreme up and extreme down.
+					else if(tileNumber % this->mapWidth == 0){
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber + 1, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - this->mapWidth, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber + this->mapWidth, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - this->mapWidth + 1, diagonalDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber + this->mapWidth + 1, diagonalDistance);
+					}
+					// All right borders tiles except for extreme up and extreme down.
+					else if(tileNumber % this->mapWidth == (this->mapWidth - 1)){
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - 1, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - this->mapWidth, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber + this->mapWidth, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - this->mapWidth - 1, diagonalDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber + this->mapWidth - 1, diagonalDistance);
+					}
+					// All up borders tiles except for extreme left and extreme right.
+					else if(tileNumber > 0 && tileNumber < (this->mapWidth-1)){
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber + 1, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - 1, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber + this->mapWidth, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - this->mapWidth + 1, diagonalDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber + this->mapWidth + 1, diagonalDistance);
+					}
+					// All down borders tiles except for extreme left and extreme right.
+					else if(tileNumber > totalTiles - (this->mapWidth - 1) && tileNumber < (totalTiles - 1)){
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber + 1, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - 1, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - this->mapWidth, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - this->mapWidth + 1, diagonalDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - this->mapWidth - 1, diagonalDistance);
+					}
+					// All the other tiles
+					else{
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber + 1, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - 1, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - this->mapWidth, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber + this->mapWidth, linearDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - this->mapWidth - 1, diagonalDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber - this->mapWidth + 1, diagonalDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber + this->mapWidth - 1, diagonalDistance);
+						Game::instance().dijkstra->addEdge(graph, tileNumber, tileNumber + this->mapWidth + 1, diagonalDistance);
+					}
 
 							TypeCollision type = CollisionRect::stringToType(property);
 							CollisionRect collisionRect(tileRect, type);
@@ -159,9 +225,8 @@ void TileMap::load(const std::string& mapPath_){
 				}
 			}
 		}
-		//Game::instance().dijkstra->makeDijkstra(graph, 0);
 
-		createPaths();
+		createPaths(graph);
 		Log(DEBUG) << "TileMap::load Map loaded (width:" << this->mapWidth << " height:" << this->mapHeight << " layers:" << this->layers << ")";
 
 	}
@@ -171,7 +236,8 @@ void TileMap::load(const std::string& mapPath_){
 	}
 }
 
-void TileMap::createPaths(){
+void TileMap::createPaths(struct Dijkstra::Graph* graph){
+	Game::instance().dijkstra->makeDijkstra(graph, 0);
 	Log(DEBUG) << "Creating paths...";
 }
 

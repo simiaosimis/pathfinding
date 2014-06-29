@@ -46,6 +46,8 @@ class Dijkstra{
             struct MinHeapNode **array;
         };
 
+        bool isGraphCreated;
+
         Dijkstra();
         struct AdjListNode* newAdjListNode(int dest, int weight);
         struct Graph* createGraph(int V);

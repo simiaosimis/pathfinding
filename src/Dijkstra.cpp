@@ -63,7 +63,7 @@ void Dijkstra::makeDijkstra(struct Graph* graph, int src){
     }
  
     // print the calculated shortest distances
-    printPath(100, 0, prev);
+    //printPath(100, 0, prev);
 }
   
 // A utility function to create a new adjacency list node
@@ -98,11 +98,6 @@ void Dijkstra::addEdge(struct Graph* graph, int src, int dest, int weight){
     struct AdjListNode* newNode = newAdjListNode(src, weight);
     newNode->next = graph->array[dest].head;
     graph->array[dest].head = newNode;
- 
-    // // Since graph is undirected, add an edge from dest to src also
-    // newNode = newAdjListNode(src, weight);
-    // newNode->next = graph->array[dest].head;
-    // graph->array[dest].head = newNode;
 }
  
 // A utility function to create a new Min Heap Node

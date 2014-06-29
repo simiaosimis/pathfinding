@@ -61,7 +61,7 @@ class TileMap {
 		*/
 		void renderLayer(const double cameraX_, const double cameraY_, const unsigned int layer_);
 
-		void createPaths();
+		void createPaths(struct Dijkstra::Graph* graph);
 
 		Tmx::Map* map;
 
