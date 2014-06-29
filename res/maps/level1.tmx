@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="50" height="29" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="Environment Tiles" tilewidth="64" tileheight="64">
+  <image source="../images/tiles/tilemap_lv1.png" width="1024" height="1024"/>
+  <terraintypes>
+   <terrain name="Ground" tile="-1"/>
+  </terraintypes>
+  <tile id="240" terrain="0,0,0,0"/>
+  <tile id="241" terrain="0,0,0,0"/>
+ </tileset>
+ <tileset firstgid="257" name="Meta Tileset" tilewidth="64" tileheight="64">
+  <properties>
+   <property name="meta" value=""/>
+  </properties>
+  <image source="tileSheet_2.png" width="192" height="192"/>
+  <tile id="3">
+   <properties>
+    <property name="type" value="collision"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="type" value="jump_through"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="type" value="grass"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="type" value="level_begin"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="type" value="climb"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="type" value="ground"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="266" name="Basic Tiles" tilewidth="64" tileheight="64">
+  <image source="tileSheet_1.png" width="192" height="192"/>
+ </tileset>
+ <layer name="Background" width="50" height="29" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJztlksKwCAMRC305/0v3I0LEaGTMSapdDEEIsQ8x4h5SykH0knKu+9VOVgW755X5mBYvPvV4pmxlwfPF/3XqturcxX1cu2a913tcbS9vikSS0QOpi7LYMEhqT2bY6+E5qJy1BHJMe/X7PkY9YPxRMpiMR/svEf4C43uEYFBgwNlkdSznI+ZsnqvLDhW8IPRz2Eryb06HIVw1LHNtRx3WbOMKAfiR30u1iwIBzofXgyoHxIODwYtPx7cnjL8
+  </data>
+ </layer>
+ <layer name="Middleground" width="50" height="29" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt07ENACAIRUHYxFGNk2vpABoorriE8v2CzIgEAAAA+GxFzOoG6Or8R3nD6x3nHrfqNnrbrY8P1Q==
+  </data>
+ </layer>
+ <layer name="Collision" width="50" height="29">
+  <data encoding="base64" compression="zlib">
+   eJzt1rEKgDAMBNAKovT/f9ilg5SAadIkZ8hwS5VrHxpoP1rrQLmEiT53VofUQvXcSRwIyeJY9VjsFeH54/ff1Uv1nCPU2vws+l+lHPNZv4JkQXRIeqUGD8dKt7Xj/T53LaODa7GeDy+HxuIxH9J5R7gLafdAMOxwcC0rfZ7zYZlyYDkkKYdvLO4l5bB3RJ9Tm3Jg5QGlMzKZ
+  </data>
+ </layer>
+</map>
